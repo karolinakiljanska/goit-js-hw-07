@@ -32,15 +32,24 @@ function onClick(event) {
     return;
   }
 
-  const instance = basicLightbox.create(`
-   <img src="${event.target.dataset.source}" width="800" height="600">
-`);
-
-  instance.show();
-
-  gallery.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      instance.close();
+  const instanse = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", modalClose);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", modalClose);
+      },
     }
-  });
+  );
+  instanse.show();
+
+  function modalClose(event) {
+    console.log(event.code);
+    if (event.code === "Escape") {
+      instanse.close();
+    }
+  }
+  galleryContainer.addEventListener("keydown", modalClose);
 }
