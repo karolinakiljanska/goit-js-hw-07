@@ -51,5 +51,4 @@ function onClick(event) {
       instanse.close();
     }
   }
-  galleryContainer.addEventListener("keydown", modalClose);
 }
